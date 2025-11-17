@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Printer {
+  id Int @id @default(autoincrement())
+  name String
+  ubication String
+  uri String
+  apikey String? // Campo encriptado (nullable si no todos lo tienen)
+  userPrinters UserPrinter[]  // Relación con la tabla intermedia
+  createAt DateTime @default(now())
+
+  @@map("printers")
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  name String?
+  nick String @unique
+  password String //encriptado
+  userPrinters UserPrinter[]  // Relación con la tabla intermedia
+  createAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model UserPrinter {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  printerId Int 
+  assignedAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  printer Printer @relation(fields: [printerId], references: [id])
+
+  @@unique([userId, printerId])  // Evita duplicados
+  @@map("user_printers")
+}

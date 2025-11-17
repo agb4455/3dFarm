@@ -1,0 +1,7 @@
+<mat-toolbar class = navBar>
+    <div class = "navBar">
+        @for(route of routes; track route){
+            <button matButton [routerLink]="route[1]">{{route[0]}}</button>
+        }
+    </div>
+</mat-toolbar>

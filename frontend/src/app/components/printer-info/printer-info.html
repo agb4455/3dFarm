@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <div>
+                <div class = "status" [ngClass]="{
+                'online': status && !isPrinting,
+                'printing': status && isPrinting,
+                'offline': !status
+                }"></div>
+                {{printer.getName()}}
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class = "content">
+            <div class = "description">
+                <p>
+                    <strong>Ubicacion:</strong> {{printer.getUbication()}}
+                    <br>
+                    <strong>URI: </strong> {{printer.getUri()}}
+                </p>
+            </div>
+
+            <div class = "description">
+                @if(isPrinting){
+                    <p>
+                        <strong>Printing: </strong>{{this.printer.getName()}}
+                        <br>
+                        <strong>Restante: </strong>{{100-(reminder/total)*100}}% ( {{this.reminder}} h/{{this.total}} h )
+                    </p>
+                    <mat-progress-bar mode="determinate" [value] = "(reminder/total)*100"></mat-progress-bar>
+                }
+            </div>
+
+            <div class = "buttons">
+                @if(status){
+                    @if(isPrinting){
+                        <button matButton (click) = "isPrinting = false">Parar impresión</button>
+                        <button matButton>Detalles impresion</button>
+                    }
+                    @if(!isPrinting){
+                        <button matButton (click) = "isPrinting = true">Continuar Impresion</button>
+                    }
+                    @if(!isPrinting){
+                        <button matButton>Imprimir</button>
+                    }
+                    
+                }
+                <button matButton>Mostrar detalles</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

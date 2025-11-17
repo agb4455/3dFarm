@@ -1,0 +1,33 @@
+.status {
+    font-weight: bold;
+    padding: 10px 10px;
+    border-radius: 10px;
+    aspect-ratio: 1/1;
+    color: white;
+    display: inline-block;
+}
+.online {
+    background-color: green;
+}
+.printing {
+    background-color: yellow;
+}
+.offline {
+    background-color: red;
+}
+
+.description{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.content{
+    display: grid;
+    grid-template-columns: 1fr  1fr 1fr;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
